@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div id="main-cont">
+        <h1 id="header">Tic Tac Toe</h1>
+        <div id="myForm">
+            <h2>Player One: </h2>
+            <form>
+                <input id="userName" type="text" placeholder="Enter Your Name:">
+                <h3>Select Your Mark:</h3>
+                <div>
+                    <input type="radio" id="markX" name="userMark">
+                    <label for="markX">X</label>
+                    <input type="radio" id="markO" name="userMark">
+                    <label for="markO">O</label>
+                </div>
+                <button>Start Game</button>
+
+            </form>
+        </div>
+        <div id="board-cont"></div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
