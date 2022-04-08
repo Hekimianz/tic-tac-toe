@@ -95,6 +95,7 @@ const gameLogic = (() => {
     })
 
     // functions for diplay winner/tie
+    let winner;
     function displayTie() {
         const winCard = document.createElement("div");
         const cardHead = document.createElement("h2");
@@ -109,7 +110,7 @@ const gameLogic = (() => {
 
         const winCard = document.createElement("div");
         const cardHead = document.createElement("h2");
-        cardHead.textContent = "WINNER!!"
+        cardHead.textContent = `${winner} wins!!`
         cardHead.style.textAlign = "center";
         winCard.style.backgroundColor = "orange";
         winCard.append(cardHead);
@@ -121,30 +122,28 @@ const gameLogic = (() => {
     // checks for horizontal win 
     let win = false;
     let round = 0;
+
     const winConditions = { w1: ["X", "X", "X"], w2: ["O", "O", "O"] };
     function checkHorizWin() {
-        if (board.Gameboard.gameboard.slice(0, 3).every(r => winConditions.w1.includes(r)) | board.Gameboard.gameboard.slice(0, 3).every(r => winConditions.w2.includes(r))) {
+        if (board.Gameboard.gameboard.slice(0, 3).every(r => winConditions.w1.includes(r)) | board.Gameboard.gameboard.slice(3, 6).every(r => winConditions.w1.includes(r)) |
+            board.Gameboard.gameboard.slice(6, 9).every(r => winConditions.w1.includes(r))) {
             win = true;
+            winner = "X";
             console.log(win);
             board.gameCont.style.display = "none"
             displayWinner();
         }
-        else if (board.Gameboard.gameboard.slice(3, 6).every(r => winConditions.w1.includes(r)) | board.Gameboard.gameboard.slice(3, 6).every(r => winConditions.w2.includes(r))) {
+        else if (board.Gameboard.gameboard.slice(0, 3).every(r => winConditions.w2.includes(r)) | board.Gameboard.gameboard.slice(3, 6).every(r => winConditions.w2.includes(r)) |
+            board.Gameboard.gameboard.slice(6, 9).every(r => winConditions.w2.includes(r))) {
             win = true;
-            console.log(win);
-            board.gameCont.style.display = "none"
-            displayWinner();
-
-
-        }
-        else if ((board.Gameboard.gameboard.slice(6, 9).every(r => winConditions.w1.includes(r))) | board.Gameboard.gameboard.slice(6, 9).every(r => winConditions.w2.includes(r))) {
-            win = true;
+            winner = "O";
             console.log(win);
             board.gameCont.style.display = "none"
             displayWinner();
 
 
         }
+
     }
 
     // check for vertical win
@@ -154,9 +153,16 @@ const gameLogic = (() => {
             board.Gameboard.gameboard[4], board.Gameboard.gameboard[7]], c3: [board.Gameboard.gameboard[2], board.Gameboard.gameboard[5], board.Gameboard.gameboard[8]]
         };
 
-        if (boardCols.c1.every(r => winConditions.w1.includes(r)) | boardCols.c1.every(r => winConditions.w2.includes(r)) | boardCols.c2.every(r => winConditions.w1.includes(r)) |
-            boardCols.c2.every(r => winConditions.w2.includes(r)) | boardCols.c3.every(r => winConditions.w1.includes(r)) | boardCols.c3.every(r => winConditions.w2.includes(r))) {
+        if (boardCols.c1.every(r => winConditions.w1.includes(r)) | boardCols.c2.every(r => winConditions.w1.includes(r)) | boardCols.c3.every(r => winConditions.w1.includes(r))) {
             win = true;
+            winner = "X";
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+        }
+        else if (boardCols.c1.every(r => winConditions.w2.includes(r)) | boardCols.c2.every(r => winConditions.w2.includes(r)) | boardCols.c3.every(r => winConditions.w2.includes(r))) {
+            win = true;
+            winner = "O";
             console.log(win);
             board.gameCont.style.display = "none"
             displayWinner();
@@ -168,9 +174,16 @@ const gameLogic = (() => {
         const boardDiag = {
             d1: [board.Gameboard.gameboard[0], board.Gameboard.gameboard[4], board.Gameboard.gameboard[8]], d2: [board.Gameboard.gameboard[2], board.Gameboard.gameboard[4], board.Gameboard.gameboard[6]]
         }
-        if (boardDiag.d1.every(r => winConditions.w1.includes(r)) | boardDiag.d1.every(r => winConditions.w2.includes(r)) |
-            boardDiag.d2.every(r => winConditions.w1.includes(r)) | boardDiag.d2.every(r => winConditions.w2.includes(r))) {
+        if (boardDiag.d1.every(r => winConditions.w1.includes(r)) | boardDiag.d2.every(r => winConditions.w1.includes(r))) {
             win = true;
+            winner = "X";
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+        }
+        else if (boardDiag.d1.every(r => winConditions.w2.includes(r)) | boardDiag.d2.every(r => winConditions.w2.includes(r))) {
+            win = true;
+            winner = "O";
             console.log(win);
             board.gameCont.style.display = "none"
             displayWinner();
