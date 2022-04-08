@@ -1,5 +1,7 @@
+const container = document.querySelector("#main-cont");
+
 const board = (() => {
-    const container = document.querySelector("#main-cont");
+    // creates board
     const Gameboard = {};
     Gameboard.gameboard = Array(9);
     for (let i = 0; i <= 8; i++) {
@@ -27,7 +29,7 @@ const board = (() => {
 })();
 
 
-
+// creates players
 const Player = (name, mark) => {
     const playerMark = mark
     return { name, playerMark };
@@ -36,17 +38,20 @@ const Player = (name, mark) => {
 
 
 
-
-
-
+// creates game logic
+// creates game turns logic
+let pcMark;
+let userMark;
+let currentPlayer;
+let pcPlayer;
+let userPlayer;
 const gameLogic = (() => {
-    let currentPlayer;
+
     const userName = document.querySelector("#userName")
     const form = document.querySelector("#myForm");
     const markX = document.querySelector("#markX");
     const markO = document.querySelector("#markO");
-    let userMark = "";
-    let pcMark = "";
+
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -56,22 +61,31 @@ const gameLogic = (() => {
         }
         else {
             nameValue = userName.value;
-            const userPlayer = Player(nameValue, userMark);
-            const pcPlayer = Player("Computer", pcMark);
-
+            userPlayer = Player(nameValue, userMark);
+            pcPlayer = Player("Computer", pcMark);
             if (markX.checked) {
                 userMark = "X"
                 pcMark = "O"
+                userPlayer.playerMark = "X";
+                pcPlayer.playerMark = "O";
                 form.style.display = "none";
                 board.gameCont.style.display = "grid"
-                return userMark;
+                currentPlayer = userPlayer;
+                console.log(currentPlayer);
+                return { userMark, pcMark }
             }
             else if (markO.checked) {
                 userMark = "O";
                 pcMark = "X";
+                userPlayer.playerMark = "O";
+                pcPlayer.playerMark = "X";
                 form.style.display = "none";
                 board.gameCont.style.display = "grid"
-                return userMark;
+                currentPlayer = pcPlayer;
+                console.log(currentPlayer);
+                return { userMark, pcMark }
+
+
             }
             else {
                 alert("Please Select A Mark");
@@ -80,21 +94,135 @@ const gameLogic = (() => {
 
     })
 
+    // functions for diplay winner/tie
+    function displayTie() {
+        const winCard = document.createElement("div");
+        const cardHead = document.createElement("h2");
+        cardHead.textContent = "TIE!!"
+        cardHead.style.textAlign = "center";
+        winCard.style.backgroundColor = "#76624F";
+        winCard.append(cardHead);
+        container.append(winCard);
+    }
 
+    function displayWinner() {
+
+        const winCard = document.createElement("div");
+        const cardHead = document.createElement("h2");
+        cardHead.textContent = "WINNER!!"
+        cardHead.style.textAlign = "center";
+        winCard.style.backgroundColor = "orange";
+        winCard.append(cardHead);
+        container.append(winCard);
+
+    }
+
+    // functions for win conditions
+    // checks for horizontal win 
+    let win = false;
+    let round = 0;
+    const winConditions = { w1: ["X", "X", "X"], w2: ["O", "O", "O"] };
+    function checkHorizWin() {
+        if (board.Gameboard.gameboard.slice(0, 3).every(r => winConditions.w1.includes(r)) | board.Gameboard.gameboard.slice(0, 3).every(r => winConditions.w2.includes(r))) {
+            win = true;
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+        }
+        else if (board.Gameboard.gameboard.slice(3, 6).every(r => winConditions.w1.includes(r)) | board.Gameboard.gameboard.slice(3, 6).every(r => winConditions.w2.includes(r))) {
+            win = true;
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+
+
+        }
+        else if ((board.Gameboard.gameboard.slice(6, 9).every(r => winConditions.w1.includes(r))) | board.Gameboard.gameboard.slice(6, 9).every(r => winConditions.w2.includes(r))) {
+            win = true;
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+
+
+        }
+    }
+
+    // check for vertical win
+    function checkVertWin() {
+        const boardCols = {
+            c1: [board.Gameboard.gameboard[0], board.Gameboard.gameboard[3], board.Gameboard.gameboard[6]], c2: [board.Gameboard.gameboard[1],
+            board.Gameboard.gameboard[4], board.Gameboard.gameboard[7]], c3: [board.Gameboard.gameboard[2], board.Gameboard.gameboard[5], board.Gameboard.gameboard[8]]
+        };
+
+        if (boardCols.c1.every(r => winConditions.w1.includes(r)) | boardCols.c1.every(r => winConditions.w2.includes(r)) | boardCols.c2.every(r => winConditions.w1.includes(r)) |
+            boardCols.c2.every(r => winConditions.w2.includes(r)) | boardCols.c3.every(r => winConditions.w1.includes(r)) | boardCols.c3.every(r => winConditions.w2.includes(r))) {
+            win = true;
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+        }
+    }
+
+    // check for diagonal win
+    function checkDiagWin() {
+        const boardDiag = {
+            d1: [board.Gameboard.gameboard[0], board.Gameboard.gameboard[4], board.Gameboard.gameboard[8]], d2: [board.Gameboard.gameboard[2], board.Gameboard.gameboard[4], board.Gameboard.gameboard[6]]
+        }
+        if (boardDiag.d1.every(r => winConditions.w1.includes(r)) | boardDiag.d1.every(r => winConditions.w2.includes(r)) |
+            boardDiag.d2.every(r => winConditions.w1.includes(r)) | boardDiag.d2.every(r => winConditions.w2.includes(r))) {
+            win = true;
+            console.log(win);
+            board.gameCont.style.display = "none"
+            displayWinner();
+        }
+
+    }
+
+    // adds marks to board and checks for win 
     const marks = document.querySelectorAll(".marks");
     const cells = document.querySelectorAll(".cells");
     for (let i = 0; i < cells.length; i++) {
         cells[i].addEventListener("click", () => {
-            if (marks[i].textContent == "X" | marks[i].textContent == "O") {
-                alert("space taken!")
+            if (marks[i].textContent == userMark | marks[i].textContent == pcMark) {
+                return;
             }
-            else {
-                marks[i].textContent = userMark;
+            else if (currentPlayer.playerMark == userMark) {
                 marks[i].style.display = "unset";
                 cells[i].style.backgroundColor = "lightgrey";
+                marks[i].textContent = userMark;
+                currentPlayer = pcPlayer;
+                board.Gameboard.gameboard[i] = userMark;
+                round = round + 1;
+                checkHorizWin();
+                checkVertWin();
+                checkDiagWin();
+                if (win == false & round == 9) {
+                    board.gameCont.style.display = "none";
+                    displayTie();
+                }
+
+            }
+            else if (currentPlayer.playerMark == pcMark) {
+                marks[i].style.display = "unset";
+                cells[i].style.backgroundColor = "lightgrey";
+                marks[i].textContent = pcMark;
+                currentPlayer = userPlayer;
+                board.Gameboard.gameboard[i] = pcMark;
+                checkHorizWin();
+                checkVertWin();
+                checkDiagWin();
+                round = round + 1;
+                console.log(round);
+                if (win == false & round == 9) {
+                    board.gameCont.style.display = "none";
+                    displayTie();
+                }
             }
         })
     }
+
+
+
 })();
 
 
