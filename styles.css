@@ -1,6 +1,13 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto Slab', serif;
+}
+
+#main-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #header {
@@ -24,6 +31,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Grape Nuts', cursive;
 }
 
 .marks {
@@ -42,4 +50,8 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#resetBtn {
+    margin-top: 30px;
 }
