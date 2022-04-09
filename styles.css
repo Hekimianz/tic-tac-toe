@@ -2,17 +2,47 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto Slab', serif;
+    background-color: #05A5F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #003a54;
 }
 
 #main-cont {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 75px;
+    background-color: #F28705;
+    width: 900px;
+    height: 900px;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#btnsCont {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 #header {
     text-align: center;
     margin: 30px 0;
+    font-size: 3em;
+}
+
+#winCard {
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
+    background-color: lightgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }
 
 #board-cont {
@@ -43,7 +73,28 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
+    font-size: 1.3em;
 }
+
+#userName {
+    border: none;
+    border-radius: 16px;
+    width: 150px;
+    height: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#markh2 {
+    margin-top: 50px;
+}
+
+#radioBtnsdiv {
+    margin-top: 15px;
+}
+
+
 
 form {
     display: flex;
@@ -52,6 +103,141 @@ form {
     align-items: center;
 }
 
+#startBtn {
+    font-size: 1.3em;
+    padding: 10px 20px;
+    background-color: #95f153;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+#startBtn:hover {
+    background-color: #69c329;
+    color: #edffe0;
+}
+
 #resetBtn {
     margin-top: 30px;
+    font-size: 1.3em;
+    padding: 10px 20px;
+    background-color: #ff2f00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+}
+
+#resetBtn:hover {
+    background-color: #b92504;
+}
+
+#markBtn {
+    margin-top: 30px;
+    font-size: 1.3em;
+    padding: 10px 20px;
+    background-color: #01c07a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+
+}
+
+#markBtn:hover {
+    background-color: #008C5A;
+}
+
+@media (max-width: 480px) {
+    #board-cont {
+        grid-template-columns: repeat(3, 75px);
+        grid-template-rows: repeat(3, 75px);
+    }
+
+    #header {
+        font-size: 2.5em;
+    }
+
+    #myForm {
+        margin: 0;
+    }
+
+    #main-cont {
+        width: 350px;
+        height: 500px;
+        margin: 75px 30px;
+        font-size: .8em;
+    }
+
+    .cells {
+        font-size: 5em;
+    }
+}
+
+@media (min-width: 481px) {
+    #board-cont {
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+    }
+
+    #myForm {
+        margin-top: 10px;
+    }
+
+    #main-cont {
+        width: 562.5px;
+        height: 562.5px;
+        margin: 75px 30px;
+    }
+
+    .cells {
+        font-size: 6em;
+    }
+}
+
+@media (min-width: 769px) {
+    #board-cont {
+        grid-template-columns: repeat(3, 150px);
+        grid-template-rows: repeat(3, 150px);
+    }
+
+    #main-cont {
+        width: 700px;
+        height: 700px;
+        margin: 75px 30px;
+    }
+
+    #myForm {
+        margin-top: 50px;
+    }
+
+    .cells {
+        font-size: 8em;
+    }
+}
+
+@media (min-width: 1200px) {
+    #board-cont {
+        grid-template-columns: repeat(3, 175px);
+        grid-template-rows: repeat(3, 175px);
+    }
+
+
+    #main-cont {
+        width: 900px;
+        height: 900px;
+        margin: 75px 0px;
+    }
+
+    .cells {
+        font-size: 10em;
+    }
 }

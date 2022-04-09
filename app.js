@@ -54,16 +54,20 @@ const gameLogic = (() => {
     const markX = document.querySelector("#markX");
     const markO = document.querySelector("#markO");
     // reset button
+    const btnsCont = document.createElement("div");
     const reset = document.createElement("button");
     reset.textContent = "RESET";
-    container.append(reset);
     reset.id = "resetBtn";
     reset.style.display = "none";
     // change mark button
     const markBtn = document.createElement("button");
     markBtn.textContent = "Change Mark";
-    container.append(markBtn);
+    markBtn.id = "markBtn";
     markBtn.style.display = "none";
+    btnsCont.append(reset);
+    btnsCont.append(markBtn);
+    container.append(btnsCont);
+    btnsCont.id = "btnsCont";
 
 
 
@@ -84,8 +88,8 @@ const gameLogic = (() => {
                 pcPlayer.playerMark = "O";
                 form.style.display = "none";
                 board.gameCont.style.display = "grid"
-                reset.style.display = "unset";
-                markBtn.style.display = "unset";
+                reset.style.display = "flex";
+                markBtn.style.display = "flex";
                 currentPlayer = userPlayer;
                 return { userMark, pcMark }
             }
@@ -96,8 +100,8 @@ const gameLogic = (() => {
                 pcPlayer.playerMark = "X";
                 form.style.display = "none";
                 board.gameCont.style.display = "grid"
-                reset.style.display = "unset";
-                markBtn.style.display = "unset";
+                reset.style.display = "flex";
+                markBtn.style.display = "flex";
                 currentPlayer = pcPlayer;
                 return { userMark, pcMark }
 
@@ -116,6 +120,7 @@ const gameLogic = (() => {
         displayTie() {
             const winCard = document.createElement("div");
             const cardHead = document.createElement("h2");
+            winCard.id = "winCard";
             cardHead.textContent = "TIE!!"
             cardHead.style.textAlign = "center";
             winCard.style.backgroundColor = "#76624F";
@@ -132,7 +137,6 @@ const gameLogic = (() => {
             winCard.id = "winCard";
             cardHead.textContent = `${winner} wins!!`
             cardHead.style.textAlign = "center";
-            winCard.style.backgroundColor = "orange";
             winCard.append(cardHead);
             container.append(winCard);
 
@@ -246,7 +250,7 @@ const gameLogic = (() => {
             }
             else if (currentPlayer.playerMark == userMark) {
                 marks[i].style.display = "unset";
-                cells[i].style.backgroundColor = "lightgrey";
+                cells[i].style.backgroundColor = "#52BF04";
                 marks[i].textContent = userMark;
                 currentPlayer = pcPlayer;
                 board.Gameboard.gameboard[i] = userMark;
@@ -262,7 +266,7 @@ const gameLogic = (() => {
             }
             else if (currentPlayer.playerMark == pcMark) {
                 marks[i].style.display = "unset";
-                cells[i].style.backgroundColor = "lightgrey";
+                cells[i].style.backgroundColor = "#D92B04";
                 marks[i].textContent = pcMark;
                 currentPlayer = userPlayer;
                 board.Gameboard.gameboard[i] = pcMark;
@@ -281,10 +285,24 @@ const gameLogic = (() => {
     reset.addEventListener("click", () => {
         board.Gameboard.gameboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
         round = 0;
-        for (let i = 0; i <= cells.length; i++) {
-            marks[i].textContent = "";
-            cells[i].style.backgroundColor = "white";
+
+        if (board.gameCont.style.display == "grid") {
+            for (let i = 0; i <= cells.length; i++) {
+                marks[i].textContent = "";
+                cells[i].style.backgroundColor = "#F28705";
+            }
         }
+        else if (board.gameCont.style.display == "none") {
+            const winCard = document.querySelector("#winCard");
+            winCard.remove();
+            board.gameCont.style.display = "grid";
+            for (let i = 0; i <= cells.length; i++) {
+                marks[i].textContent = "";
+                cells[i].style.backgroundColor = "#F28705";
+            }
+        }
+
+
     })
 
     markBtn.addEventListener("click", () => {
@@ -298,7 +316,7 @@ const gameLogic = (() => {
         winCard.remove();
         for (let i = 0; i <= cells.length; i++) {
             marks[i].textContent = "";
-            cells[i].style.backgroundColor = "white";
+            cells[i].style.backgroundColor = "#F28705";
         }
     })
 
