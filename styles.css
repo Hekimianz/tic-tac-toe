@@ -7,6 +7,9 @@
 html,
 body {
   height: 100%;
+  background-color: #1b2b36;
+  font-family: "Afacad Flux", sans-serif;
+  color: #f5f4f6;
 }
 
 body {
@@ -34,20 +37,113 @@ main {
   padding: 50px 0;
 }
 
-.board {
-  display: grid;
-  width: 70%;
+.overlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
   height: 100%;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+}
+
+p {
+  padding-top: 100px;
+  text-align: center;
+  color: #fdbf12;
+  font-size: 2em;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #f5f4f6;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: 0.2s all;
+}
+
+button:hover {
+  background: #fdbf12;
+  color: #1b2b36;
+}
+
+.winnerAlert {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.overlay button {
+  width: 80%;
+  padding: 5px 10px;
+  margin-top: 10px;
+  background-color: #f5f4f6;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: 0.2s all;
+}
+
+.overlay button:hover {
+  background: #fdbf12;
+  color: #1b2b36;
+}
+
+.start {
+  width: 100%;
+  align-self: flex-start;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+input {
+  width: 30%;
+}
+
+form div {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+button {
+  width: 60%;
+  cursor: pointer;
+  max-width: 300px;
+}
+
+.input--name {
+  width: 45%;
+}
+
+.board {
+  display: none;
+  width: 70%;
+  min-height: 70%;
   grid-template-columns: 1fr 1fr 1fr;
+  max-width: 553px;
 }
 
 .board--sq {
-  border: 1px solid black;
+  border: 1px solid #f5f4f6;
   cursor: pointer;
-}
-
-.board--sq:hover {
-  background-color: rgb(242, 242, 242);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 115px;
+  font-size: 2em;
+  color: #f5f4f69f;
+  user-select: none;
 }
 
 .board--sq[data-index="0"] {
@@ -90,4 +186,30 @@ footer {
   padding-bottom: 10px;
   width: 100%;
   text-align: center;
+  color: #fdbf12;
+  opacity: 0.6;
+  transition: 0.2s all;
+  cursor: default;
+}
+
+footer:hover {
+  opacity: 1;
+}
+
+@media screen and (min-width: 769px) {
+  h1 {
+    font-size: 3em;
+  }
+
+  form {
+    font-size: 1.2em;
+  }
+
+  button {
+    font-size: 0.8em;
+  }
+
+  .board {
+    font-size: 2.2em;
+  }
 }
